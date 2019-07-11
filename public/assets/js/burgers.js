@@ -1,15 +1,17 @@
 $(function() {
     $(".change-devoured").on("click", function(event){
+        event.preventDefault();
+
         var id = $(this).data("id");
         var newDevoured = $(this).data("newdevoured");
-
+        console.log(id);
         var newDevouredState = {
             devoured: newDevoured
         };
 
         $.ajax("/api/burgers/" + id, {
             type: "PUT",
-            data: newDevoured
+            data: newDevouredState
         }).then(
         function() {
             console.log("changed devoured to", newDevoured);
@@ -22,7 +24,6 @@ $(function() {
 
         var newBurger = {
             burger_name: $("#burger").val().trim(),
-            devoured: $("[name=devoured]:checked").val().trim()
         };
 
         $.ajax("/api/burgers", {

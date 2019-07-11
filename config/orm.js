@@ -15,16 +15,17 @@ var orm = {
             callback(result);
         });
     },
-    insertOne: function(table, cols, vals, callback) {
-        var queryString = "INSERT INTO ?? (??) VALUES (??);";
+    createOne: function(table, cols, vals, callback) {
+        var queryString = "INSERT INTO " + table + " ("+cols+") VALUES ("+JSON.stringify(vals[0])+");";
         connection.query(queryString, [table, cols, vals], function(err, result) {
             if(err) throw err;
             callback(result);
         });
     },
     updateOne: function(table, objColsVals, condition, callback) {
-        var queryString = "UPDATE ?? SET ?? = ? WHERE id = ? ";
-        connection.query(queryString, [table, objColsVals, condition], function(err, result) {
+        var queryString = "UPDATE "+table+" SET devoured ="+objColsVals+" WHERE "+condition+";";
+        console.log(queryString);
+        connection.query(queryString, function(err, result) {
             if(err) throw err;
             callback(result);
         });
